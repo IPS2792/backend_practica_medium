@@ -3,7 +3,9 @@ const router = express.Router()
 const posts = require('../usecases/postMedium')
 const auth = require('../middlewares/auth')
 
-router.get('/', auth, async (request, response) => {
+router.use(auth)
+
+router.get('/', async (request, response) => {
   try {
     const allMediumPosts = await posts.getPosts()
     response.json({
@@ -21,7 +23,7 @@ router.get('/', auth, async (request, response) => {
   }
 })
 
-router.post('/', auth, async (request, response) => {
+router.post('/', async (request, response) => {
   try {
     const newPost = await posts.createPost(request.body)
     response.json({
@@ -40,7 +42,7 @@ router.post('/', auth, async (request, response) => {
   }
 })
 
-router.delete('/:id', auth, async (request, response) => {
+router.delete('/:id', async (request, response) => {
   try {
     const { id } = request.params
     const postDeleted = await posts.deletePost(id)
@@ -60,7 +62,7 @@ router.delete('/:id', auth, async (request, response) => {
   }
 })
 
-router.patch('/:id', auth, async (request, response) => {
+router.patch('/:id', async (request, response) => {
   try {
     const { id } = request.params
     const postUpdate = await posts.updatePost(id, request.body)
