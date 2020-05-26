@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const users = require('../usecases/usersMedium')
+const cors = require('cors')
+
+router.use(cors())
 
 router.post('/signup', async (request, response) => {
   try {

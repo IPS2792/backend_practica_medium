@@ -1,5 +1,8 @@
 const server = require('./src/server')
 const db = require('./src/lib/dbParams')
+const cors = require('cors')
+
+server.use(cors())
 
 async function main () {
   await db.connect()

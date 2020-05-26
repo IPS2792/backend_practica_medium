@@ -2,8 +2,9 @@ const express = require('express')
 const router = express.Router()
 const posts = require('../usecases/postMedium')
 const auth = require('../middlewares/auth')
+const cors = require('cors')
 
-router.use(auth)
+router.use(auth, cors())
 
 router.get('/', async (request, response) => {
   try {
