@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const posts = require('../usecases/postMedium')
-const auth = require('../middlewares/auth')
+// const auth = require('../middlewares/auth')
 const cors = require('cors')
 
-router.use(auth, cors())
+router.use(cors())
 
 router.get('/', async (request, response) => {
   try {
@@ -13,6 +13,26 @@ router.get('/', async (request, response) => {
       message: 'All Posts in Medium',
       data: {
         posts: allMediumPosts
+      }
+    })
+  } catch (error) {
+    response.status(400)
+    response.json({
+      success: false,
+      error: error.message
+    })
+  }
+})
+
+router.get('/:id', async (request, response) => {
+  try {
+    const { id } = request.params
+    const postById = await posts.getPostsById(id)
+    response.json({
+      success: true,
+      message: `Post with id ${id} is available`,
+      data: {
+        post: postById
       }
     })
   } catch (error) {

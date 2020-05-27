@@ -5,6 +5,11 @@ async function getPosts () {
   return allMediumPosts
 }
 
+async function getPostsById (id) {
+  const mediumPostsById = await posts.findById(id)
+  return mediumPostsById
+}
+
 async function createPost (postData) {
   return posts.create(postData)
 }
@@ -21,5 +26,6 @@ module.exports = {
   getPosts,
   createPost,
   deletePost,
-  updatePost
+  updatePost,
+  getPostsById
 }
